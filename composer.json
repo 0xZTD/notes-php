@@ -1,0 +1,15 @@
+{
+    "name": "zeth/notes-php",
+    "autoload": {
+        "psr-4": {
+            "Zeth\\NotesPhp\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "zestx5",
+            "email": "buyankov.ilya@gmail.com"
+        }
+    ],
+    "require": {}
+}
