@@ -9,7 +9,7 @@ use Zeth\NotesPhp\Repositories\InMemoryRepository;
 final class InMemoryRepositoryTest extends TestCase
 {
 
-    public function testSaveFunctionWorksAsExpected(): void
+    public function testSaveFunctionAddsNoteToDb(): void
     {
         $repo = new InMemoryRepository();
         $want = Note::createNote("test");
@@ -39,7 +39,7 @@ final class InMemoryRepositoryTest extends TestCase
         $this->assertEquals($want, $got);
     }
 
-    public function testGetByIdWorksAsExpected(): void
+    public function testGetByIdReturnsSpecifiedNote(): void
     {
         $repo = new InMemoryRepository();
         $want = new Note(1488, "text");
@@ -49,7 +49,7 @@ final class InMemoryRepositoryTest extends TestCase
         $this->assertEquals($got, $want);
     }
 
-    public function testUpdateReturnsUpdatedNote(): void
+    public function testUpdateUpdatesNote(): void
     {
         $repo = new InMemoryRepository();
         $want = new Note(1488, "text");
@@ -60,6 +60,16 @@ final class InMemoryRepositoryTest extends TestCase
 
         $got = $repo->getById(1488);
         $this->assertEquals($got, $want);
+    }
+
+    public function testDeleteRemovesNote(): void
+    {
+        $repo = new InMemoryRepository();
+        $want = new Note(1488, "text");
+        $repo->save($want);
+        $repo->delete($want->id);
+        $got = $repo->getById($want->id);
+        $this->assertEquals($got, null);
     }
 
 }
