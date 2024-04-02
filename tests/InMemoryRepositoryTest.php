@@ -19,4 +19,24 @@ final class InMemoryRepositoryTest extends TestCase
         $this->assertEquals($got, $want);
     }
 
+    public function testGetAllReturnArrayWithNotes(): void
+    {
+        $repo = new InMemoryRepository();
+
+        $want = [
+            Note::createNote("1"),
+            Note::createNote("1"),
+            Note::createNote("1"),
+            Note::createNote("1"),
+            Note::createNote("1"),
+            Note::createNote("1"),
+        ];
+        for ($i = 0; $i < count($want); $i++) {
+            $repo->save($want[$i]);
+        }
+        $got = $repo->getAll();
+
+        $this->assertEquals($want, $got);
+    }
+
 }
