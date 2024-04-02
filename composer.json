@@ -1,9 +1,12 @@
 {
     "name": "zeth/notes-php",
     "autoload": {
-        "classmap": [
-            "src/"
-        ]
+        "psr-4": {
+            "Zeth\\NotesPhp\\":"src/"
+        }
+    },
+    "autoload-dev": {
+        "classmap": ["src/"]
     },
     "authors": [
         {

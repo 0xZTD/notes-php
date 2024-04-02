@@ -39,4 +39,14 @@ final class InMemoryRepositoryTest extends TestCase
         $this->assertEquals($want, $got);
     }
 
+    public function testGetByIdWorksAsExpected(): void
+    {
+        $repo = new InMemoryRepository();
+        $want = new Note(1488, "text");
+
+        $repo->save($want);
+        $got = $repo->getById(1488);
+        $this->assertEquals($got, $want);
+    }
+
 }
