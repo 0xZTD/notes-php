@@ -48,7 +48,7 @@ class InMemoryRepository implements RepositoryInterface
         for ($i = 0; $i < count(self::$db); $i++) {
             $n = self::$db[$i];
             if ($n->id == $note->id) {
-                $n = $note;
+                $n->text = $note->text;
             }
         }
     }
