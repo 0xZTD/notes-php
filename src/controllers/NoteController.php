@@ -24,4 +24,14 @@ class NoteController
         return $response
             ->withHeader('Content-Type', 'application/json');
     }
+
+    public function note(Request $request, Response $response, $args)
+    {
+        $data = $this->repo->getById($args["id"]);
+        $payload = json_encode($data);
+
+        $response->getBody()->write($payload);
+        return $response
+            ->withHeader('Content-Type', 'application/json');
+    }
 }

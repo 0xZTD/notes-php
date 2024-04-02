@@ -8,5 +8,7 @@ use Zeth\NotesPhp\Models\Note;
 $app = AppFactory::create();
 
 $app->get('/note', NoteController::class . ":notes");
+$app->get('/note/[{id}]', NoteController::class . ":notes");
+
 
 $app->run();
