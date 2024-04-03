@@ -5,7 +5,6 @@ namespace Zeth\NotesPhp\Controllers;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Zeth\NotesPhp\Interfaces\RepositoryInterface;
-use Zeth\NotesPhp\Repositories\InMemoryRepository;
 use Zeth\NotesPhp\Models\Note;
 
 
@@ -48,6 +47,28 @@ class NoteController
             $n = Note::createNote($content->{'text'});
         }
         $this->repo->save($n);
+        $response->getBody()->write(json_encode($n));
+        return $response->withHeader('Content-Type', 'application/json');
+    }
+
+    public function delete(Request $request, Response $response, $args)
+    {
+        $this->repo->delete($args['id']);
+
+        return $response
+            ->withHeader('Content-Type', 'application/json');
+    }
+
+    public function update(Request $request, Response $response, $args)
+    {
+        $data = $request->getBody();
+        $content = json_decode($data);
+        if (isset($content->{'id'})) {
+            $n = new Note($content->{'id'}, $content->{'text'});
+        } else {
+            $n = Note::createNote($content->{'text'});
+        }
+        $this->repo->update($args['id'], $n);
         $response->getBody()->write(json_encode($n));
         return $response->withHeader('Content-Type', 'application/json');
     }

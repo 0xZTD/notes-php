@@ -22,9 +22,12 @@ $container->set(NoteController::class, function (ContainerInterface $container) 
 AppFactory::setContainer($container);
 $app = AppFactory::create();
 
-$app->get('/note', NoteController::class . ":notes");
-$app->get('/note/[{id}]', NoteController::class . ":note");
-$app->post('/note', NoteController::class . ":createNote");
+$app->get('/note', NoteController::class . ':notes');
+$app->get('/note/[{id}]', NoteController::class . ':note');
+$app->post('/note', NoteController::class . ':createNote');
+$app->post('/note/[{id}]', NoteController::class . ':update');
+$app->delete('/note/[{id}]', NoteController::class . ':delete');
+
 
 
 
