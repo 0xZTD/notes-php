@@ -54,7 +54,13 @@ class SQLiteRepository implements RepositoryInterface
         $stmt->execute();
     }
 
-    public function update(Note $note)
+    public function update(int $id, Note $note)
     {
+        $stmt = $this->db->prepare('UPDATE notes SET text = :text , id = :newId WHERE id = :id');
+        $stmt->bindValue(':id', $id, SQLITE3_INTEGER);
+        $stmt->bindValue(':newId', $note->id, SQLITE3_INTEGER);
+        $stmt->bindValue(':text', $note->text, SQLITE3_TEXT);
+
+        $stmt->execute();
     }
 }

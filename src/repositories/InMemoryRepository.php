@@ -43,11 +43,11 @@ class InMemoryRepository implements RepositoryInterface
             unset($this->db[$idx]);
     }
 
-    public function update(Note $note)
+    public function update(int $id, Note $note)
     {
         for ($i = 0; $i < count($this->db); $i++) {
             $n = $this->db[$i];
-            if ($n->id == $note->id) {
+            if ($n->id == $id) {
                 $n->text = $note->text;
             }
         }

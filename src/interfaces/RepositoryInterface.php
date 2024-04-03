@@ -10,5 +10,5 @@ interface RepositoryInterface
     public function getAll(): array;
     public function getById(int $id): ?Note;
     public function delete(int $id);
-    public function update(Note $note);
+    public function update(int $id, Note $note);
 }

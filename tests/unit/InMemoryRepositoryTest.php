@@ -56,7 +56,7 @@ final class InMemoryRepositoryTest extends TestCase
         $repo->save($want);
 
         $want->text = "text2";
-        $repo->update($want);
+        $repo->update(1488, $want);
 
         $got = $repo->getById(1488);
         $this->assertEquals($got, $want);

@@ -71,7 +71,15 @@ final class SQLiteRepositoryTest extends TestCase
 
     public function testUpdateUpdatesNote(): void
     {
+        $n = Note::createNote("Test note");
+        $want = new Note(1337, "Test notex");
 
+        $this->repo->save($n);
+        $this->repo->update($n->id, $want);
+
+
+        $got = $this->repo->getById(1337);
+        $this->assertEquals($want, $got);
     }
 
 }
