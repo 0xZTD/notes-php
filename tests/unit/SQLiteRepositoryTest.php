@@ -47,6 +47,15 @@ final class SQLiteRepositoryTest extends TestCase
 
     public function testGetByIdReturnsSpecifiedNote(): void
     {
+        $n = Note::createNote("Test note");
+        $n2 = new Note(1337, "Test note");
+
+        $this->repo->save($n);
+        $this->repo->save($n2);
+
+
+        $got = $this->repo->getById($n2->id);
+        $this->assertEquals($n2, $got);
 
     }
 
