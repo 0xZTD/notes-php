@@ -41,11 +41,17 @@ class SQLiteRepository implements RepositoryInterface
 
         $result = $stmt->execute();
         $res = $result->fetchArray();
-        return new Note($res['id'], $res['text']);
+        if (isset($res['id']))
+            return new Note($res['id'], $res['text']);
+        return null;
     }
 
     public function delete(int $id)
     {
+        $stmt = $this->db->prepare('DELETE FROM notes WHERE id=:id');
+        $stmt->bindValue(':id', $id, SQLITE3_INTEGER);
+
+        $stmt->execute();
     }
 
     public function update(Note $note)

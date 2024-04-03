@@ -59,13 +59,19 @@ final class SQLiteRepositoryTest extends TestCase
 
     }
 
+    public function testDeleteRemovesNote(): void
+    {
+        $n = Note::createNote("Test note");
+        $this->repo->save($n);
+        $this->repo->delete($n->id);
+
+        $got = $this->repo->getById($n->id);
+        $this->assertNull($got);
+    }
+
     public function testUpdateUpdatesNote(): void
     {
 
     }
 
-    public function testDeleteRemovesNote(): void
-    {
-
-    }
 }
