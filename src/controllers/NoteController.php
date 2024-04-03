@@ -30,7 +30,7 @@ class NoteController
 
     public function note(Request $request, Response $response, $args)
     {
-        $data = $this->repo->getById($args["id"]);
+        $data = $this->repo->getById($args['id']);
         $payload = json_encode($data);
 
         $response->getBody()->write($payload);
@@ -42,7 +42,11 @@ class NoteController
     {
         $data = $request->getBody();
         $content = json_decode($data);
-        $n = Note::createNote($content->{"text"});
+        if (isset($content->{'id'})) {
+            $n = new Note($content->{'id'}, $content->{'text'});
+        } else {
+            $n = Note::createNote($content->{'text'});
+        }
         $this->repo->save($n);
         $response->getBody()->write(json_encode($n));
         return $response->withHeader('Content-Type', 'application/json');
