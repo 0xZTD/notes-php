@@ -13,9 +13,9 @@ class NoteController
 {
     private RepositoryInterface $repo;
 
-    public function __construct()
+    public function __construct(RepositoryInterface $repositoryInterface)
     {
-        $this->repo = new InMemoryRepository();
+        $this->repo = $repositoryInterface;
     }
 
     public function notes(Request $request, Response $response, $args)

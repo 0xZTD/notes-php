@@ -2,9 +2,8 @@
 
 namespace Zeth\NotesPhp\Db;
 
-use SQLite3;
 
-final class SQLiteDb extends SQLite3
+final class SQLiteDb extends \SQLite3
 {
     const DB = 'CREATE TABLE IF NOT EXISTS notes(
         id      INTEGER NOT NULL PRIMARY KEY,
