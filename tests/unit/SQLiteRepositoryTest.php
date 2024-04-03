@@ -10,24 +10,38 @@ use Zeth\NotesPhp\Repositories\SQLiteRepository;
 #[RequiresPhpExtension('sqlite3')]
 final class SQLiteRepositoryTest extends TestCase
 {
-    private RepositoryInterface $db;
+    private RepositoryInterface $repo;
 
     protected function setUp(): void
     {
-        $this->db = new SQLiteRepository(':memory:');
+        $this->repo = new SQLiteRepository(':memory:');
     }
 
     public function testSaveFunctionAddsNoteToDb(): void
     {
         $n = Note::createNote("Test note");
-        $this->db->save($n);
+        $this->repo->save($n);
 
-        $got = $this->db->getById($n->id);
+        $got = $this->repo->getById($n->id);
         $this->assertEquals($n, $got);
     }
 
     public function testGetAllReturnArrayWithNotes(): void
     {
+        $want = [
+            Note::createNote("1"),
+            Note::createNote("2"),
+            Note::createNote("3"),
+            Note::createNote("4"),
+            Note::createNote("5"),
+            Note::createNote("6"),
+        ];
+        for ($i = 0; $i < count($want); $i++) {
+            $this->repo->save($want[$i]);
+        }
+        $got = $this->repo->getAll();
+
+        $this->assertEqualsCanonicalizing($want, $got);
 
     }
 

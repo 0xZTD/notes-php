@@ -25,7 +25,13 @@ class SQLiteRepository implements RepositoryInterface
 
     public function getAll(): array
     {
-        return [];
+        $notes = [];
+        $res = $this->db->query('SELECT * FROM notes');
+        while ($r = $res->fetchArray()) {
+            $n = new Note($r['id'], $r['text']);
+            array_push($notes, $n);
+        }
+        return $notes;
     }
 
     public function getById(int $id): ?Note
