@@ -4,11 +4,14 @@ namespace Zeth\NotesPhp\Controllers;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Zeth\NotesPhp\Interfaces\RepositoryInterface;
 use Zeth\NotesPhp\Repositories\InMemoryRepository;
+use Zeth\NotesPhp\Models\Note;
+
 
 class NoteController
 {
-    private $repo;
+    private RepositoryInterface $repo;
 
     public function __construct()
     {
@@ -33,5 +36,15 @@ class NoteController
         $response->getBody()->write($payload);
         return $response
             ->withHeader('Content-Type', 'application/json');
+    }
+
+    public function createNote(Request $request, Response $response, $args)
+    {
+        $data = $request->getBody();
+        $content = json_decode($data);
+        $n = Note::createNote($content->{"text"});
+        $this->repo->save($n);
+        $response->getBody()->write(json_encode($n));
+        return $response->withHeader('Content-Type', 'application/json');
     }
 }

@@ -7,12 +7,7 @@ use Zeth\NotesPhp\Models\Note;
 
 class InMemoryRepository implements RepositoryInterface
 {
-    private array $db;
-
-    public function __construct()
-    {
-        $this->db = [];
-    }
+    private array $db = [];
 
     public function save(Note $note)
     {

@@ -25,11 +25,11 @@ final class InMemoryRepositoryTest extends TestCase
 
         $want = [
             Note::createNote("1"),
-            Note::createNote("1"),
-            Note::createNote("1"),
-            Note::createNote("1"),
-            Note::createNote("1"),
-            Note::createNote("1"),
+            Note::createNote("2"),
+            Note::createNote("3"),
+            Note::createNote("4"),
+            Note::createNote("5"),
+            Note::createNote("6"),
         ];
         for ($i = 0; $i < count($want); $i++) {
             $repo->save($want[$i]);
