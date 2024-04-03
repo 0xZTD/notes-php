@@ -6,7 +6,6 @@ use Zeth\NotesPhp\Db\SQLiteDb;
 
 class SQLiteDbTest extends TestCase
 {
-
     public function testDbCanBeCreatedFromString()
     {
         $db = new SQLiteDb('');
@@ -14,6 +13,4 @@ class SQLiteDbTest extends TestCase
         $result = $db->query('SELECT * FROM notes')->fetchArray();
         $this->assertEquals('This is a test', $result['text']);
     }
-
-
 }
